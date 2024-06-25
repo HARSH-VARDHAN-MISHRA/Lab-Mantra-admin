@@ -87,12 +87,12 @@ const AllTestCategory = () => {
                 <table className="table table-bordered table-striped table-hover">
                     <thead>
                         <tr>
-                            <th scope="col">Sr.No.</th>
-                            <th scope="col">Test Category Name</th>
-                            <th scope="col">Test Names</th>
-                            <th scope="col">Test Quantity</th>
-                            <th scope="col">Edit</th>
-                            <th scope="col">Delete</th>
+                            <th scope="col" className='text-nowrap'>Sr.No.</th>
+                            <th scope="col" className='text-nowrap'>Test Category Name</th>
+                            <th scope="col" className='text-nowrap'>Test Names</th>
+                            <th scope="col" className='text-nowrap'>Test Quantity</th>
+                            <th scope="col" className='text-nowrap'>Edit</th>
+                            <th scope="col" className='text-nowrap'>Delete</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -102,7 +102,7 @@ const AllTestCategory = () => {
                                 <td>{testGroup.testCategoryName}</td>
                                 <td>
                                     {testGroup.testId.map((test, idx) => (
-                                        <div key={idx}>{test.testName}</div>
+                                        <div key={idx} className='text-nowrap'>{test.testName} ,</div>
                                     ))}
                                 </td>
                                 <td>{testGroup.testNumber}</td>
