@@ -14,6 +14,7 @@ import EditTestCategory from '../../Pages/TestCategory/EditTestCategory'
 import AllPackage from '../../Pages/Package/AllPackage'
 import AddPackage from '../../Pages/Package/AddPackage'
 import EditPackage from '../../Pages/Package/EditPackage'
+import AddLaboratory from '../../Pages/Laboratory/AddLaboratory'
 
 
 const Home = () => {
@@ -44,6 +45,11 @@ const Home = () => {
           <Route path={"/all-package"} element={<AllPackage/>}/>
           <Route path={"/add-package"} element={<AddPackage/>}/>
           <Route path={"/edit-package/:id"} element={<EditPackage/>}/>
+
+          {/* --- Laboratory --- */}
+          {/* <Route path={"/all-package"} element={<AllPackage/>}/> */}
+          <Route path={"/add-laboratory"} element={<AddLaboratory/>}/>
+          {/* <Route path={"/edit-package/:id"} element={<EditPackage/>}/> */}
 
         </Routes>
       </div>
