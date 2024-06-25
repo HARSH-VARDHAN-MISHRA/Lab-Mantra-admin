@@ -109,18 +109,25 @@ const AllPackageTitle = () => {
                                 <th scope="row">{index + 1}</th>
                                 <td>{packTitle.packageTitle}</td>
                                 <td>
-                                    {packTitle.packages.map((packageName, idx) => (
-                                        <>
-                                            <div key={idx}>{packageName} ,</div>
-                                        </>
+                                    {packTitle.packagesId.map((packageName, idx) => (
+                                        <div key={idx}>{packageName.packageName} ,</div>
                                     ))}
                                 </td>
                                 <td>{packTitle.packagesQuantity}</td>
-                                <td><Link to={`/edit-package-title/${packTitle._id}`} className="bt edit">Edit <i className="fa-solid fa-pen-to-square"></i></Link></td>
-                                <td><Link onClick={() => { handleDelete(packTitle._id) }} className="bt delete">Delete <i className="fa-solid fa-trash"></i></Link></td>
+                                <td>
+                                    <Link to={`/edit-package-title/${packTitle._id}`} className="bt edit">
+                                        Edit <i className="fa-solid fa-pen-to-square"></i>
+                                    </Link>
+                                </td>
+                                <td>
+                                    <Link onClick={() => { handleDelete(packTitle._id) }} className="bt delete">
+                                        Delete <i className="fa-solid fa-trash"></i>
+                                    </Link>
+                                </td>
                             </tr>
                         ))}
                     </tbody>
+
 
                 </table>
                 <nav>

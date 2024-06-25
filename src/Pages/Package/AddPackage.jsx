@@ -153,11 +153,11 @@ const AddPackage = () => {
                             value={testOptions.filter(option => formData.testCategoryIds.includes(option.value))}
                         />
                     </div>
-                    <div className="col-md-3 col-6">
+                    <div className="col-md-6 col-6">
                         <label htmlFor="testQuantity" className="form-label">Test Quantity</label>
                         <input type="text" readOnly name="testQuantity" value={formData.testQuantity} className="form-control" id="testQuantity" />
                     </div>
-                    <div className="col-md-3 col-6">
+                    <div className="col-md-6 col-6">
                         <label htmlFor="testGroupQuantity" className="form-label">Test Group Quantity</label>
                         <input type="text" readOnly name="testGroupQuantity" value={formData.testGroupQuantity} className="form-control" id="testGroupQuantity" />
                     </div>
@@ -166,12 +166,12 @@ const AddPackage = () => {
                         <input type="text" onChange={handleInputChange} name="actualPrice" value={formData.actualPrice} className="form-control" id="actualPrice" />
                     </div>
                     <div className="col-md-4">
-                        <label htmlFor="currentPrice" className="form-label">Current Price</label>
-                        <input type="text" readOnly name="currentPrice" value={formData.currentPrice} className="form-control" id="currentPrice" />
-                    </div>
-                    <div className="col-md-4">
                         <label htmlFor="offPercentage" className="form-label">Off Percentage</label>
                         <input type="text" onChange={handleInputChange} name="offPercentage" value={formData.offPercentage} className="form-control" id="offPercentage" />
+                    </div>
+                    <div className="col-md-4">
+                        <label htmlFor="currentPrice" className="form-label">Current Price</label>
+                        <input type="text" readOnly name="currentPrice" value={formData.currentPrice} className="form-control" id="currentPrice" />
                     </div>
                     <div className="col-12 text-center">
                         <button type="submit" disabled={isLoading} className={`${isLoading ? 'not-allowed' : 'allowed'}`}>

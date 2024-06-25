@@ -30,7 +30,7 @@ const EditPackageTitle = () => {
                 const responseTitle = await axios.get(`http://localhost:6842/api/v1/get-all-package-title`);
                 const packageTitles = responseTitle.data.data;
                 const packageTitleData = packageTitles.find(title => title._id === id);
-
+                // console.log(packageTitleData)
                 if (!packageTitleData) {
                     throw new Error(`Package title with id ${id} not found`);
                 }
@@ -40,14 +40,14 @@ const EditPackageTitle = () => {
                 // Prepare package options for Select component
                 const options = availablePackages.map(pkg => ({
                     value: pkg.packageName,
-                    label: pkg.packageName
+                    label: pkg._id
                 }));
 
                 setPackageOptions(options);
                 setFormData({
-                    packageTitle,
-                    packages,
-                    packagesQuantity: packages.length
+                    packageTitle: packageTitleData.packageTitle,
+                    packages: packageTitleData.packagesId.map((items) => items.packageName),
+                    packagesQuantity: packageTitleData.testQuantity
                 });
 
                 setLoading(false);
@@ -69,13 +69,18 @@ const EditPackageTitle = () => {
     };
 
     const handlePackageChange = (selectedOptions) => {
-        const selectedPackages = selectedOptions ? selectedOptions.map(option => option.value) : [];
+        console.log(selectedOptions)
+        const selectedPackages = selectedOptions ? selectedOptions.map(option => ({
+            label: option.label,
+            value: option.value
+        })) : [];
         setFormData(prevData => ({
             ...prevData,
             packages: selectedPackages,
             packagesQuantity: selectedPackages.length
         }));
     };
+
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -123,11 +128,12 @@ const EditPackageTitle = () => {
                                 isMulti
                                 options={packageOptions}
                                 onChange={handlePackageChange}
-                                value={packageOptions.filter(option => formData.packages.includes(option.value))}
-                                getOptionLabel={(option) => option.label}
-                                getOptionValue={(option) => option.value}
+                                value={packageOptions.filter(option => formData.packages.some(pkg => pkg.value === option.value))}
+                                getOptionLabel={(option) => option.value}
+                                getOptionValue={(option) => option.label}
                             />
                         </div>
+
                         <div className="col-md-4">
                             <label htmlFor="packagesQuantity" className="form-label">Packages Quantity</label>
                             <input type="number" name='packagesQuantity' value={formData.packagesQuantity} className="form-control" id="packagesQuantity" readOnly />
