@@ -95,8 +95,11 @@ ol, ul {
 .d-table{
   width: 100%;
   margin: 1rem 0rem;
-  overflow-x: auto;
+  overflow-x: hidden;
   font-size: 0.88rem;
+}
+.d-table .table.table-bordered{
+  overflow-x: scroll;
 }
 .d-table i{
   font-size: 0.78rem;

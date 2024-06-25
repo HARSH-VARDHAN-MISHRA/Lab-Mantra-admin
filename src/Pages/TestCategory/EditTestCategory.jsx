@@ -11,11 +11,11 @@ const EditTestCategory = () => {
 
     const [formData, setData] = useState({
         testCategoryName: '',
-        testName: [],
+        testId: [],
         testNumber: 0
     });
 
-    const [loading, setLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState(true);
     const [btnLoading, setBtnLoading] = useState(false);
     const [testOptions, setTestOptions] = useState([]);
 
@@ -30,24 +30,25 @@ const EditTestCategory = () => {
         } catch (error) {
             console.error('There was an error fetching the tests!', error);
         }
-    }
+    };
 
     const fetchTestCategory = async () => {
         try {
-            const response = await axios.get('http://localhost:6842/api/v1/get-all-test-category');
-            const testCategories = response.data.data;
-            const testCategory = testCategories.find(category => category._id === id);
-            if (testCategory) {
+            const response = await axios.get(`http://localhost:6842/api/v1/get-all-test-category`);
+            const resData = response.data.data;
+            const filterData = resData.filter((item) => item._id === id);
+            if (filterData.length > 0) {
+                const testCategory = filterData[0];
                 setData({
                     testCategoryName: testCategory.testCategoryName,
-                    testName: testCategory.testName,
-                    testNumber: testCategory.testName.length
+                    testId: testCategory.testId.map(test => test._id),
+                    testNumber: testCategory.testId.length
                 });
             }
-            setLoading(false);
+            setIsLoading(false);
         } catch (error) {
             console.error('There was an error fetching the test category!', error);
-            setLoading(false);
+            setIsLoading(false);
         }
     };
 
@@ -60,11 +61,10 @@ const EditTestCategory = () => {
     };
 
     const handleTestChange = (selectedOptions) => {
-        const testNames = selectedOptions ? selectedOptions.map(option => option.label) : [];
         setData(prevData => ({
             ...prevData,
-            testName: testNames,
-            testNumber: testNames.length
+            testId: selectedOptions ? selectedOptions.map(option => option.value) : [],
+            testNumber: selectedOptions ? selectedOptions.length : 0
         }));
     };
 
@@ -105,7 +105,7 @@ const EditTestCategory = () => {
             </div>
 
             <div className="d-form">
-                {loading ? (
+                {isLoading ? (
                     <p>Loading...</p>
                 ) : (
                     <form className="row g-3" onSubmit={handleSubmit}>
@@ -119,7 +119,7 @@ const EditTestCategory = () => {
                                 isMulti
                                 options={testOptions}
                                 onChange={handleTestChange}
-                                value={testOptions.filter(option => formData.testName.includes(option.label))}
+                                value={testOptions.filter(option => formData.testId.includes(option.value))}
                             />
                         </div>
                         <div className="col-md-4">
