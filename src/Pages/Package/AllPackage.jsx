@@ -18,7 +18,7 @@ const AllPackage = () => {
             const reverseData = res.data.data
             const main = reverseData.reverse()
             setPackage(main)
-            console.log(testPackage)
+            console.log("Main",main)
         } catch (error) {
             console.error('There was an error fetching the Package!', error);
         }
@@ -108,14 +108,14 @@ const AllPackage = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {currentItems.map((testPackage, index) => (
-                            <tr key={testPackage._id}>
+                        {currentItems && currentItems.map((testPackage, index) => (
+                            <tr key={index}>
                                 <th scope="row">{index + 1}</th>
                                 <td>{testPackage.packageName}</td>
                                 <td>
-                                    {testPackage.testCategoryName.map((testGroupName, idx) => (
+                                    {testPackage.testCategoryId.map((testGroupName, idx) => (
                                       <>
-                                            <div key={idx}>{testGroupName} ,</div>
+                                            <div key={idx}>{testGroupName.testCategoryName} ,</div>
                                         </>
                                     ))}
                                 </td>

@@ -41,7 +41,9 @@ const AddPackageTitle = () => {
     };
 
     const handlePackageChange = (selectedOptions) => {
-        const selectedPackages = selectedOptions ? selectedOptions.map(option => option.label) : [];
+        console.log(selectedOptions)
+        const selectedPackages = selectedOptions ? selectedOptions.map(option => option.value) : [];
+        console.log(selectedPackages)
         setData(prevData => ({
             ...prevData,
             packages: selectedPackages,
@@ -98,7 +100,7 @@ const AddPackageTitle = () => {
                             isMulti
                             options={packageOptions}
                             onChange={handlePackageChange}
-                            value={packageOptions.filter(option => formData.packages.includes(option.label))}
+                            value={packageOptions.filter(option => formData.packages.includes(option.value))}
                         />
                     </div>
                     <div className="col-md-4">
