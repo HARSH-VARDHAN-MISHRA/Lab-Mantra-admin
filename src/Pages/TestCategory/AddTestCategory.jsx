@@ -8,7 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 const AddTestCategory = () => {
     const [formData, setData] = useState({
         testCategoryName: '',
-        testName: [],
+        testId: [],
         testNumber: 0
     });
     const [isLoading, setIsLoading] = useState(false);
@@ -26,7 +26,7 @@ const AddTestCategory = () => {
         } catch (error) {
             console.error('There was an error fetching the test!', error);
         }
-    }
+    };
 
     const handleCategoryNameChange = (event) => {
         const { name, value } = event.target;
@@ -39,7 +39,7 @@ const AddTestCategory = () => {
     const handleTestChange = (selectedOptions) => {
         setData(prevData => ({
             ...prevData,
-            testName: selectedOptions ? selectedOptions.map(option => option.label) : []
+            testId: selectedOptions ? selectedOptions.map(option => option.value) : []
         }));
     };
 
@@ -50,9 +50,9 @@ const AddTestCategory = () => {
     useEffect(() => {
         setData(prevData => ({
             ...prevData,
-            testNumber: formData.testName.length
+            testNumber: formData.testId.length
         }));
-    }, [formData.testName]);
+    }, [formData.testId]);
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -96,7 +96,7 @@ const AddTestCategory = () => {
                             isMulti
                             options={testOptions}
                             onChange={handleTestChange}
-                            value={testOptions.filter(option => formData.testName.includes(option.label))}
+                            value={testOptions.filter(option => formData.testId.includes(option.value))}
                         />
                     </div>
                     <div className="col-md-4">

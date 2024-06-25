@@ -118,6 +118,8 @@ ol, ul {
   text-decoration: none;
   transition: var(--transition-3);
   white-space: nowrap;
+  border: none;
+  outline: none;
 }
 .d-table .bt:hover{
   opacity: 0.5;

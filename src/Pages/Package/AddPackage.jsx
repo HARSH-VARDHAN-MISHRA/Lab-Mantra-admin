@@ -1,113 +1,100 @@
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import Select from 'react-select';
 import { Link, useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
-import Select from 'react-select';
 import 'react-toastify/dist/ReactToastify.css';
 
 const AddPackage = () => {
-    const [formData, setData] = useState({
+    const [formData, setFormData] = useState({
         packageName: '',
-        testCategoryName: [],
-        testQuantity: '',
-        testGroupQuantity: 0, // Changed to number
-        currentPrice: '',
+        testCategoryIds: [],
+        testQuantity: 0,
+        testGroupQuantity: 0,
         actualPrice: '',
-        offPercentage: ''
+        offPercentage: '',
+        currentPrice: ''
     });
+
     const [isLoading, setIsLoading] = useState(false);
     const [testOptions, setTestOptions] = useState([]);
     const navigate = useNavigate();
 
-    const fetchTest = async () => {
-        try {
-            const testRes = await axios.get('http://localhost:6842/api/v1/get-all-test-category');
-            const options = testRes.data.data.map(test => ({
-                value: test._id,
-                label: test.testCategoryName,
-                testNumber: test.testNumber // Include testNumber in options
-            }));
-            setTestOptions(options);
-        } catch (error) {
-            console.error('There was an error fetching the test!', error);
-        }
-    };
-
-    const handleCategoryNameChange = (event) => {
+    // Handle input change for non-select inputs
+    const handleInputChange = (event) => {
         const { name, value } = event.target;
-        setData(prevData => ({
-            ...prevData,
+        setFormData(prevState => ({
+            ...prevState,
             [name]: value
         }));
+
+        if (name === 'actualPrice' || name === 'offPercentage') {
+            const { actualPrice, offPercentage } = formData;
+            const calculatedCurrentPrice = calculateCurrentPrice(
+                name === 'actualPrice' ? value : actualPrice,
+                name === 'offPercentage' ? value : offPercentage
+            );
+            setFormData(prevState => ({
+                ...prevState,
+                currentPrice: calculatedCurrentPrice
+            }));
+        }
     };
 
+    // Function to calculate currentPrice based on actualPrice and offPercentage
+    const calculateCurrentPrice = (actualPrice, offPercentage) => {
+        const parsedActualPrice = parseFloat(actualPrice);
+        const parsedOffPercentage = parseFloat(offPercentage);
+
+        if (!isNaN(parsedActualPrice) && !isNaN(parsedOffPercentage) && parsedOffPercentage >= 1 && parsedOffPercentage <= 100) {
+            const currentPrice = parsedActualPrice - (parsedActualPrice * (parsedOffPercentage / 100));
+            return currentPrice.toFixed();
+        }
+        return '';
+    };
+
+    // Handle change for Select component
     const handleTestChange = (selectedOptions) => {
+        const selectedCategoryIds = selectedOptions ? selectedOptions.map(option => option.value) : [];
         const selectedTests = selectedOptions ? selectedOptions.map(option => ({
             label: option.label,
-            testNumber: option.testNumber // Retrieve testNumber from selected options
+            testNumber: option.testNumber
         })) : [];
-        
-        // Calculate total test group quantity
+
+        const totalTestQuantity = selectedTests.length;
         const totalTestGroupQuantity = selectedTests.reduce((total, test) => total + test.testNumber, 0);
 
-        setData(prevData => ({
-            ...prevData,
-            testCategoryName: selectedTests.map(test => test.label),
-            testQuantity: selectedTests.length.toString(),
+        setFormData(prevState => ({
+            ...prevState,
+            testCategoryIds: selectedCategoryIds,
+            testQuantity: totalTestQuantity,
             testGroupQuantity: totalTestGroupQuantity
         }));
+
+        const updatedOptions = testOptions.map(option => ({
+            ...option,
+            selectedCount: selectedCategoryIds.includes(option.value) ? selectedTests.filter(test => test.label === option.label).length : 0
+        }));
+        setTestOptions(updatedOptions);
     };
 
-    const handleCurrentPriceChange = (event) => {
-        const { value } = event.target;
-        const currentPrice = parseFloat(value);
-        const actualPrice = parseFloat(formData.actualPrice);
-        if (!isNaN(currentPrice) && !isNaN(actualPrice)) {
-            const offPercentage = ((actualPrice - currentPrice) / actualPrice) * 100;
-            setData(prevData => ({
-                ...prevData,
-                currentPrice: value,
-                offPercentage: isNaN(offPercentage) ? '' : offPercentage.toFixed()
-            }));
-        } else {
-            setData(prevData => ({
-                ...prevData,
-                currentPrice: value,
-                offPercentage: ''
-            }));
-        }
-    };
-
-    const handleOffPercentageChange = (event) => {
-        const { value } = event.target;
-        const offPercentage = parseFloat(value);
-        const actualPrice = parseFloat(formData.actualPrice);
-        if (!isNaN(offPercentage) && !isNaN(actualPrice)) {
-            const currentPrice = actualPrice - (actualPrice * (offPercentage / 100));
-            setData(prevData => ({
-                ...prevData,
-                offPercentage: value,
-                currentPrice: isNaN(currentPrice) ? '' : currentPrice.toFixed()
-            }));
-        } else {
-            setData(prevData => ({
-                ...prevData,
-                offPercentage: value,
-                currentPrice: ''
-            }));
-        }
-    };
-
+    // Handle form submission
     const handleSubmit = async (event) => {
         event.preventDefault();
+
+        // Validate required fields
+        if (!formData.packageName || formData.testCategoryIds.length === 0 || !formData.actualPrice) {
+            toast.error('Please provide all required fields: Package Name, Test Categories, Actual Price');
+            return;
+        }
+
         setIsLoading(true);
+
         try {
             const response = await axios.post('http://localhost:6842/api/v1/create-package', formData);
             setIsLoading(false);
             toast.success('Package Created', {
-                onClose: () => {
-                    navigate('/all-package');
-                }
+                onClose: () => navigate('/all-package')
             });
         } catch (error) {
             setIsLoading(false);
@@ -116,8 +103,24 @@ const AddPackage = () => {
         }
     };
 
+    // Fetch test categories on component mount
     useEffect(() => {
-        fetchTest();
+        const fetchTestCategories = async () => {
+            try {
+                const response = await axios.get('http://localhost:6842/api/v1/get-all-test-category');
+                const options = response.data.data.map(category => ({
+                    value: category._id,
+                    label: category.testCategoryName,
+                    testNumber: category.testNumber,
+                    selectedCount: 0
+                }));
+                setTestOptions(options);
+            } catch (error) {
+                console.error('Error fetching test categories:', error);
+            }
+        };
+
+        fetchTestCategories();
     }, []);
 
     return (
@@ -136,36 +139,39 @@ const AddPackage = () => {
                 <form className="row g-3" onSubmit={handleSubmit}>
                     <div className="col-md-8">
                         <label htmlFor="packageName" className="form-label">Package Name</label>
-                        <input type="text" onChange={handleCategoryNameChange} name='packageName' value={formData.packageName} className="form-control" id="packageName" />
+                        <input type="text" onChange={handleInputChange} name="packageName" value={formData.packageName} className="form-control" id="packageName" />
                     </div>
-                    <div className="col-md-6">
-                        <label htmlFor="testCategoryName" className="form-label">Select Tests</label>
+                    <div className="col-md-4">
+                        <label htmlFor="testCategoryIds" className="form-label">Select Tests</label>
                         <Select
                             isMulti
-                            options={testOptions}
+                            options={testOptions.map(option => ({
+                                ...option,
+                                label: `${option.label} (${option.selectedCount}/${option.testNumber} selected)`
+                            }))}
                             onChange={handleTestChange}
-                            value={testOptions.filter(option => formData.testCategoryName.includes(option.label))}
+                            value={testOptions.filter(option => formData.testCategoryIds.includes(option.value))}
                         />
                     </div>
                     <div className="col-md-3 col-6">
                         <label htmlFor="testQuantity" className="form-label">Test Quantity</label>
-                        <input type="text" readOnly name='testQuantity' value={formData.testQuantity} className="form-control" id="testQuantity" />
+                        <input type="text" readOnly name="testQuantity" value={formData.testQuantity} className="form-control" id="testQuantity" />
                     </div>
                     <div className="col-md-3 col-6">
                         <label htmlFor="testGroupQuantity" className="form-label">Test Group Quantity</label>
-                        <input type="text" readOnly name='testGroupQuantity' value={formData.testGroupQuantity} className="form-control" id="testGroupQuantity" />
+                        <input type="text" readOnly name="testGroupQuantity" value={formData.testGroupQuantity} className="form-control" id="testGroupQuantity" />
                     </div>
                     <div className="col-md-4">
                         <label htmlFor="actualPrice" className="form-label">Actual Price</label>
-                        <input type="text" onChange={handleCategoryNameChange} name='actualPrice' value={formData.actualPrice} className="form-control" id="actualPrice" />
+                        <input type="text" onChange={handleInputChange} name="actualPrice" value={formData.actualPrice} className="form-control" id="actualPrice" />
                     </div>
                     <div className="col-md-4">
                         <label htmlFor="currentPrice" className="form-label">Current Price</label>
-                        <input type="text" onChange={handleCurrentPriceChange} name='currentPrice' value={formData.currentPrice} className="form-control" id="currentPrice" />
+                        <input type="text" readOnly name="currentPrice" value={formData.currentPrice} className="form-control" id="currentPrice" />
                     </div>
                     <div className="col-md-4">
                         <label htmlFor="offPercentage" className="form-label">Off Percentage</label>
-                        <input type="text" onChange={handleOffPercentageChange} name='offPercentage' value={formData.offPercentage} className="form-control" id="offPercentage" />
+                        <input type="text" onChange={handleInputChange} name="offPercentage" value={formData.offPercentage} className="form-control" id="offPercentage" />
                     </div>
                     <div className="col-12 text-center">
                         <button type="submit" disabled={isLoading} className={`${isLoading ? 'not-allowed' : 'allowed'}`}>
