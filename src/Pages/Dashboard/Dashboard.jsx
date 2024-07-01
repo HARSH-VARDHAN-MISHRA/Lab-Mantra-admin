@@ -18,7 +18,7 @@ const Dashboard = () => {
           'x-rapidapi-key': '75ad2dad64msh17034f06cc47c06p18295bjsn18e367df005b'
         }
       });
-      console.log("forward Geo Code",response.data)
+        console.log("forward Geo Code",response.data)
 
       if (response.data.results.length > 0) {
         const { location } = response.data.results[0];
@@ -48,7 +48,8 @@ const Dashboard = () => {
             });
             console.log("Reverse Geo Code",response.data)
             if (response.data.results.length > 0) {
-              setReverseAddress(response.data.results[0].formatted_address);
+              setReverseAddress(response.data.results[0]);
+              console.log(response.data.results[0])
             } else {
               setError('Unable to retrieve address');
             }
@@ -93,11 +94,11 @@ const Dashboard = () => {
         <button onClick={reverseGeocode} className="btn btn-secondary">
           Get Current Location Address
         </button>
-        {reverseAddress && (
+        {/* {reverseAddress && (
           <div className="mt-4">
             <p>Address: {reverseAddress}</p>
           </div>
-        )}
+        )} */}
       </div>
 
       {error && <p className="mt-4 text-danger">{error}</p>}
