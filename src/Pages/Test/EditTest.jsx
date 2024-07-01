@@ -72,7 +72,7 @@ const EditTest = () => {
 
     const handleFetch = async () => {
         try {
-            const res = await axios.get(`http://localhost:6842/api/v1/get-all-test`);
+            const res = await axios.get(`https://lab-mantra-backend.onrender.com/api/v1/get-all-test`);
             const tests = res.data.data;
             const filterData = tests.filter((item) => item._id === id);
             if (filterData.length > 0) {
@@ -95,7 +95,7 @@ const EditTest = () => {
         setBtnLoading(true)
 
         try {
-            const response = await axios.put(`http://localhost:6842/api/v1/update-test/${id}`, formData);
+            const response = await axios.put(`https://lab-mantra-backend.onrender.com/api/v1/update-test/${id}`, formData);
             setBtnLoading(false);
             // toast.success("Test Updated Successfully!");
             toast.success('Test Updated Successfully!', {
