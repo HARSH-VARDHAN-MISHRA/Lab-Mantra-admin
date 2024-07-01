@@ -23,7 +23,7 @@ const AddLaboratory = () => {
     // Fetch all available tests
     const fetchTests = async () => {
         try {
-            const testRes = await axios.get('http://localhost:6842/api/v1/get-all-test');
+            const testRes = await axios.get('https://lab-mantra-backend.onrender.com/api/v1/get-all-test');
             const options = testRes.data.data.map(test => ({
                 value: test._id,
                 label: test.testName
@@ -99,7 +99,7 @@ const AddLaboratory = () => {
         setIsLoading(true);
 
         try {
-            const response = await axios.post('http://localhost:6842/api/v1/create-laboratory', {
+            const response = await axios.post('https://lab-mantra-backend.onrender.com/api/v1/create-laboratory', {
                 ...formData,
                 location: {
                     coordinates: [parseFloat(formData.longitude), parseFloat(formData.latitude)]
