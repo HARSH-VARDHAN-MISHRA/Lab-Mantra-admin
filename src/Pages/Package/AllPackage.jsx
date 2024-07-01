@@ -115,7 +115,8 @@ const AllPackage = () => {
                                 <td>
                                     {testPackage.testCategoryId.map((testGroupName, idx) => (
                                       <>
-                                            <div key={idx}>{testGroupName.testCategoryName} ,</div>
+                                      {/* {console.log(testGroupName)} */}
+                                            <div key={idx}>{testGroupName} ,</div>
                                         </>
                                     ))}
                                 </td>
