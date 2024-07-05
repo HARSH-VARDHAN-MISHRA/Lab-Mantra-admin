@@ -92,15 +92,15 @@ const AddLaboratory = () => {
                 </div>
                 <div className='col-12'>
                     <div className='row'>
-                    <div className="mb-3 col-md-6">
-                    <label htmlFor="email" className="form-label">Email</label>
-                    <input type="email" name="email" value={formData.email} onChange={handleChange} className="form-control" id="email" />
-                </div>
-            
-                <div className="mb-3 col-md-6">
-                    <label htmlFor="pinCode" className="form-label">Pin Code<span className="text-danger">*</span></label>
-                    <input type="text" name="pinCode" value={formData.pinCode} onChange={handleChange} className="form-control" id="pinCode" required />
-                </div>
+                        <div className="mb-3 col-md-6">
+                            <label htmlFor="email" className="form-label">Email</label>
+                            <input type="email" name="email" value={formData.email} onChange={handleChange} className="form-control" id="email" />
+                        </div>
+
+                        <div className="mb-3 col-md-6">
+                            <label htmlFor="pinCode" className="form-label">Pin Code<span className="text-danger">*</span></label>
+                            <input type="text" name="pinCode" value={formData.pinCode} onChange={handleChange} className="form-control" id="pinCode" required />
+                        </div>
                     </div>
                 </div>
                 <div className='give-location mb-3'>
@@ -120,7 +120,7 @@ const AddLaboratory = () => {
                         <input type="text" name="state" value={formData.state} onChange={handleChange} className="form-control" id="state" required />
                     </div>
                 </div>
-             
+
                 <div className="row">
                     <div className="col-md-6 mb-3">
                         <label htmlFor="longitude" className="form-label">Longitude<span className="text-danger">*</span></label>
