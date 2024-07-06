@@ -26,7 +26,7 @@ const EditPackage = () => {
 
     const fetchPackage = async () => {
         try {
-            const response = await axios.get(`https://lab-mantra-backend.onrender.com/api/v1/get-all-package`);
+            const response = await axios.get(`http://localhost:6842/api/v1/get-all-package`);
             const allPackages = response.data.data;
             
             // Find the package with matching ID
@@ -43,7 +43,7 @@ const EditPackage = () => {
             }));
 
             // Fetch all test categories to populate options in Select
-            const testRes = await axios.get('https://lab-mantra-backend.onrender.com/api/v1/get-all-test-category');
+            const testRes = await axios.get('http://localhost:6842/api/v1/get-all-test-category');
             const options = testRes.data.data.map(test => ({
                 value: test.testCategoryName,
                 label: test.testCategoryName,
@@ -145,7 +145,7 @@ const EditPackage = () => {
                 testCategoryName: categoryNames
             };
     
-            const response = await axios.put(`https://lab-mantra-backend.onrender.com/api/v1/update-package/${id}`, updatedFormData);
+            const response = await axios.put(`http://localhost:6842/api/v1/update-package/${id}`, updatedFormData);
             setIsLoading(false);
             toast.success('Package Updated', {
                 onClose: () => {

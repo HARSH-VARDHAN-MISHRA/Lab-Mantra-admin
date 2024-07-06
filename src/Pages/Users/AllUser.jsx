@@ -14,7 +14,7 @@ const AllUser = () => {
 
     const handleFetch = async () => {
         try {
-            const res = await axios.get('https://lab-mantra-backend.onrender.com/api/v1/all-users');
+            const res = await axios.get('http://localhost:6842/api/v1/all-users');
             const reverseData = res.data.users;
             const main = reverseData.reverse()
             setUsers(main)
@@ -36,7 +36,9 @@ const AllUser = () => {
         handleFetch();
     }, []);
 
+    const handleDelete = ()=>{
 
+    }
     return (
         <>
             <ToastContainer />
