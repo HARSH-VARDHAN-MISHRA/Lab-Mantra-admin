@@ -15,8 +15,7 @@ const AddLaboratory = () => {
         city: '',
         state: '',
         pinCode: '',
-        longitude: '',
-        latitude: '',
+      
     });
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
@@ -36,15 +35,15 @@ const AddLaboratory = () => {
         console.log(formData);
         try {
             // Validate required fields
-            const { LabName, address, city, state, pinCode, longitude, latitude } = formData;
-            if (!LabName || !address || !city || !state || !pinCode || !longitude || !latitude) {
+            const { LabName, address, city, state, pinCode } = formData;
+            if (!LabName || !address || !city || !state || !pinCode ) {
                 toast.error("All fields are required.");
                 setIsLoading(false);
                 return;
             }
 
 
-            const response = await axios.post('https://lab-mantra-backend.onrender.com/api/v1/create-laboratory', {
+            const response = await axios.post('http://localhost:6842/api/v1/create-laboratory', {
                 ...formData,
                 location: {
                     coordinates: [parseFloat(formData.longitude), parseFloat(formData.latitude)]
@@ -107,26 +106,19 @@ const AddLaboratory = () => {
                         <label htmlFor="address" className="form-label">Address<span className="text-danger">*</span></label>
                         <input type="text" name="address" value={formData.address} onChange={handleChange} className="form-control" id="address" required />
                     </div>
-                    <div className="col-md-3">
+                    <div className="col-md-4">
                         <label htmlFor="pinCode" className="form-label">Pin Code<span className="text-danger">*</span></label>
                         <input type="text" name="pinCode" value={formData.pinCode} onChange={handleChange} className="form-control" id="pinCode" required />
                     </div>
-                    <div className="col-md-3">
+                    <div className="col-md-4">
                         <label htmlFor="city" className="form-label">City<span className="text-danger">*</span></label>
                         <input type="text" name="city" value={formData.city} onChange={handleChange} className="form-control" id="city" required />
                     </div>
-                    <div className="col-md-3">
+                    <div className="col-md-4">
                         <label htmlFor="state" className="form-label">State<span className="text-danger">*</span></label>
                         <input type="text" name="state" value={formData.state} onChange={handleChange} className="form-control" id="state" required />
                     </div>
-                    <div className="col-md-3">
-                        <label htmlFor="longitude" className="form-label">Longitude<span className="text-danger">*</span></label>
-                        <input type="text" name="longitude" value={formData.longitude} onChange={handleChange} className="form-control" id="longitude" required />
-                    </div>
-                    <div className="col-md-3">
-                        <label htmlFor="latitude" className="form-label">Latitude<span className="text-danger">*</span></label>
-                        <input type="text" name="latitude" value={formData.latitude} onChange={handleChange} className="form-control" id="latitude" required />
-                    </div>
+   
 
                     <div className="col-12 text-center">
                         <button type="submit" disabled={isLoading} className={`${isLoading ? 'not-allowed' : 'allowed'}`}>{isLoading ? "Please Wait..." : "Add Laboratory"}</button>

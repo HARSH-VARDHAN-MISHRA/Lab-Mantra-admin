@@ -70,7 +70,7 @@ const AddTest = () => {
         setIsLoading(true);
         console.log(formData);
         try {
-            const response = await axios.post('https://lab-mantra-backend.onrender.com/api/v1/create-test', formData);
+            const response = await axios.post('http://localhost:6842/api/v1/create-test', formData);
             console.log(response.data);
             setIsLoading(false);
 
