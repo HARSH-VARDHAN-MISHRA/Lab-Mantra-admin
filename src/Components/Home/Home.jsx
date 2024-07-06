@@ -15,6 +15,8 @@ import AllPackage from '../../Pages/Package/AllPackage'
 import AddPackage from '../../Pages/Package/AddPackage'
 import EditPackage from '../../Pages/Package/EditPackage'
 import AddLaboratory from '../../Pages/Laboratory/AddLaboratory'
+import AllLaboratory from '../../Pages/Laboratory/AllLaboratory'
+import AllUser from '../../Pages/Users/AllUser'
 
 
 const Home = () => {
@@ -47,9 +49,12 @@ const Home = () => {
           <Route path={"/edit-package/:id"} element={<EditPackage/>}/>
 
           {/* --- Laboratory --- */}
-          {/* <Route path={"/all-package"} element={<AllPackage/>}/> */}
+          <Route path={"/all-laboratory"} element={<AllLaboratory/>}/>
           <Route path={"/add-laboratory"} element={<AddLaboratory/>}/>
           {/* <Route path={"/edit-package/:id"} element={<EditPackage/>}/> */}
+
+          {/* --- Users --- */}
+          <Route path={"/all-users"} element={<AllUser/>}/>
 
         </Routes>
       </div>
