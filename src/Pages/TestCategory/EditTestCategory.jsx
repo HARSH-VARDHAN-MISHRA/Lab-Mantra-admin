@@ -21,7 +21,7 @@ const EditTestCategory = () => {
 
     const fetchTest = async () => {
         try {
-            const testRes = await axios.get('http://localhost:6842/api/v1/get-all-test');
+            const testRes = await axios.get('https://lab-mantra-backend.onrender.com/api/v1/get-all-test');
             const options = testRes.data.data.map(test => ({
                 value: test._id,
                 label: test.testName
@@ -34,7 +34,7 @@ const EditTestCategory = () => {
 
     const fetchTestCategory = async () => {
         try {
-            const response = await axios.get(`http://localhost:6842/api/v1/get-all-test-category`);
+            const response = await axios.get(`https://lab-mantra-backend.onrender.com/api/v1/get-all-test-category`);
             const resData = response.data.data;
             const filterData = resData.filter((item) => item._id === id);
             if (filterData.length > 0) {
@@ -73,7 +73,7 @@ const EditTestCategory = () => {
         setBtnLoading(true);
 
         try {
-            await axios.put(`http://localhost:6842/api/v1/update-test-category/${id}`, formData);
+            await axios.put(`https://lab-mantra-backend.onrender.com/api/v1/update-test-category/${id}`, formData);
             setBtnLoading(false);
             toast.success('Test Category Updated!', {
                 onClose: () => {

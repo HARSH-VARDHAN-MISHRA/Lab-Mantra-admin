@@ -43,7 +43,7 @@ const AddLaboratory = () => {
             }
 
 
-            const response = await axios.post('http://localhost:6842/api/v1/create-laboratory', {
+            const response = await axios.post('https://lab-mantra-backend.onrender.com/api/v1/create-laboratory', {
                 ...formData,
                 location: {
                     coordinates: [parseFloat(formData.longitude), parseFloat(formData.latitude)]

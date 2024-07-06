@@ -14,7 +14,7 @@ const AllLaboratory = () => {
 
     const handleFetch = async () => {
         try {
-            const res = await axios.get('http://localhost:6842/api/v1/get-all-laboratories');
+            const res = await axios.get('https://lab-mantra-backend.onrender.com/api/v1/get-all-laboratories');
             const reverseData = res.data.data
             const main = reverseData.reverse()
             setLaboratory(main)
@@ -48,7 +48,7 @@ const AllLaboratory = () => {
         }).then(async (result) => {
             if (result.isConfirmed) {
                 try {
-                    const res = await axios.delete(`http://localhost:6842/api/v1/delete-laboratory/${id}`);
+                    const res = await axios.delete(`https://lab-mantra-backend.onrender.com/api/v1/delete-laboratory/${id}`);
                     console.log(res.data);
                     toast.success("Laboratory Deleted");
                     handleFetch();
