@@ -17,6 +17,8 @@ import EditPackage from '../../Pages/Package/EditPackage'
 import AddLaboratory from '../../Pages/Laboratory/AddLaboratory'
 import AllLaboratory from '../../Pages/Laboratory/AllLaboratory'
 import AllUser from '../../Pages/Users/AllUser'
+import AllVoucher from '../../Pages/Vouchers/AllVoucher'
+import CreateVoucher from '../../Pages/Vouchers/AddVoucher'
 
 
 const Home = () => {
@@ -55,6 +57,10 @@ const Home = () => {
 
           {/* --- Users --- */}
           <Route path={"/all-users"} element={<AllUser/>}/>
+
+          {/* --- Vouchers --- */}
+          <Route path={"/all-voucher"} element={<AllVoucher/>}/>   {/* // All Vouchers */}
+          <Route path={"/add-voucher"} element={<CreateVoucher/>}/>
 
         </Routes>
       </div>

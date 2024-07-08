@@ -41,7 +41,7 @@ const Header = () => {
             <li><Link to="/all-package" onClick={handletoggleBtn}> <i className="fa-solid fa-box-archive"></i> Packages</Link></li>
             <li><Link to="/all-test-category" onClick={handletoggleBtn}> <i className="fa-solid fa-layer-group"></i> Test Category</Link></li>
             <li><Link to="/all-test" onClick={handletoggleBtn}> <i className="fa-solid fa-flask-vial"></i> Test</Link></li>
-
+            <li><Link to="/all-voucher" onClick={handletoggleBtn}> <i class="fa-brands fa-cc-discover"></i> Manage Voucher</Link></li>
             <button className='logout'>Log Out <i className="fa-solid fa-right-from-bracket"></i></button>
 
           </ul>
