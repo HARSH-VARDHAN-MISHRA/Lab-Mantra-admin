@@ -56,7 +56,7 @@ const AllVoucher = () => {
                     <h4>All Voucher </h4>
                 </div>
                 <div className="links">
-                    <Link to="/add-voucher" className="add-new">Add New <i class="fa-solid fa-plus"></i></Link>
+                    <Link to="/add-voucher" className="add-new">Add New <i className="fa-solid fa-plus"></i></Link>
                 </div>
             </div>
 
@@ -64,7 +64,7 @@ const AllVoucher = () => {
 
                        
                         <section className=" mt-2 d-table table-responsive">
-                            <table class="table table-bordered table-striped table-hover">
+                            <table className="table table-bordered table-striped table-hover">
                                 <thead>
                                     <tr>
                                         <th scope="col">Coupon Code</th>
@@ -88,7 +88,7 @@ const AllVoucher = () => {
                                                 <button className="btn btn-danger btn-sm" onClick={() => markInActive(voucher._id)}>De-Active</button>
                                             </td>
                                             <td>
-                                                <Link className="bt delete" onClick={() => markDelete(voucher._id)}>Delete <i class="fa-solid fa-trash"></i></Link>
+                                                <Link className="bt delete" onClick={() => markDelete(voucher._id)}>Delete <i className="fa-solid fa-trash"></i></Link>
                                             </td>
                                         </tr>
                                     ))}

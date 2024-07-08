@@ -36,12 +36,12 @@ const Header = () => {
             <li><Link to="/dashboard" onClick={handletoggleBtn}> <i className="fa-solid fa-gauge"></i> Dashboard</Link></li>
 
             <li><Link to="/all-laboratory" onClick={handletoggleBtn}> <i className="fa-solid fa-house-chimney-medical"></i> Laboratory</Link></li>
-            <li><Link to="/all-users" onClick={handletoggleBtn}> <i class="fa-solid fa-user-tag"></i> Users</Link></li>
+            <li><Link to="/all-users" onClick={handletoggleBtn}> <i className="fa-solid fa-user-tag"></i> Users</Link></li>
             <li><Link to="/all-package-title" onClick={handletoggleBtn}> <i className="fa-solid fa-wand-magic-sparkles"></i> Package Title</Link></li>
             <li><Link to="/all-package" onClick={handletoggleBtn}> <i className="fa-solid fa-box-archive"></i> Packages</Link></li>
             <li><Link to="/all-test-category" onClick={handletoggleBtn}> <i className="fa-solid fa-layer-group"></i> Test Category</Link></li>
             <li><Link to="/all-test" onClick={handletoggleBtn}> <i className="fa-solid fa-flask-vial"></i> Test</Link></li>
-            <li><Link to="/all-voucher" onClick={handletoggleBtn}> <i class="fa-brands fa-cc-discover"></i> Manage Voucher</Link></li>
+            <li><Link to="/all-voucher" onClick={handletoggleBtn}> <i className="fa-brands fa-cc-discover"></i> Manage Voucher</Link></li>
             <button className='logout'>Log Out <i className="fa-solid fa-right-from-bracket"></i></button>
 
           </ul>
