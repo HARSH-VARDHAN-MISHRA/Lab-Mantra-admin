@@ -5,8 +5,8 @@ import Swal from 'sweetalert2';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const AllPackage = () => {
-    const [testPackage, setPackage] = useState([]);
+const AllOrders = () => {
+    const [orders, setOrders] = useState([]);
 
     // --- Pagination ---
     const [currentPage, setCurrentPage] = useState('1')
@@ -14,13 +14,13 @@ const AllPackage = () => {
 
     const handleFetch = async () => {
         try {
-            const res = await axios.get('https://lab-mantra-backend.onrender.com/api/v1/get-all-package');
+            const res = await axios.get('https://lab-mantra-backend.onrender.com/api/v1/all-orders');
             const reverseData = res.data.data
             const main = reverseData.reverse()
-            setPackage(main)
-            console.log("Main",main)
+            setOrders(main)
+            console.log(orders)
         } catch (error) {
-            console.error('There was an error fetching the Package!', error);
+            console.error('There was an error fetching the Orders!', error);
         }
     }
     const handlePageChange = (pageNumber) => {
@@ -30,7 +30,7 @@ const AllPackage = () => {
     // --- Pagination ---
     const indexOfLastItem = currentPage * itemPerPage;
     const indexOfFirstItem = indexOfLastItem - itemPerPage;
-    const currentItems = testPackage.slice(indexOfFirstItem, indexOfLastItem)
+    const currentItems = orders.slice(indexOfFirstItem, indexOfLastItem)
 
     useEffect(() => {
         handleFetch();
@@ -48,14 +48,14 @@ const AllPackage = () => {
         }).then(async (result) => {
             if (result.isConfirmed) {
                 try {
-                    const res = await axios.delete(`https://lab-mantra-backend.onrender.com/api/v1/delete-package/${id}`);
-                    console.log(res.data);
-                    toast.success("Package Deleted");
+                    const res = await axios.delete(`https://lab-mantra-backend.onrender.com/api/v1/delete-order/${id}`);
+                    console.log(res.data.data);
+                    toast.success("Order Deleted");
                     handleFetch();
 
                     Swal.fire({
                         title: "Deleted!",
-                        text: "Your file has been deleted.",
+                        text: "Your Order has been deleted.",
                         icon: "success"
                     });
                 } catch (error) {
@@ -66,24 +66,29 @@ const AllPackage = () => {
         });
     };
 
+    const formatDate = (dateString) => {
+        const options = { day: '2-digit', month: 'long', year: 'numeric' };
+        return new Date(dateString).toLocaleDateString('en-US', options);
+    };
+    
     return (
         <>
             <ToastContainer />
             <div className="bread">
                 <div className="head">
-                    <h4>All Package </h4>
+                    <h4>All Orders </h4>
                 </div>
                 <div className="links">
-                    <Link to="/add-package" className="add-new">Add New <i className="fa-solid fa-plus"></i></Link>
+
                 </div>
             </div>
 
             <div className="filteration">
                 <div className="selects">
-                    {/* <select>
+                    <select>
                         <option>Ascending Order </option>
                         <option>Descending Order </option>
-                    </select> */}
+                    </select>
                 </div>
                 <div className="search">
                     <label htmlFor="search">Search </label> &nbsp;
@@ -91,44 +96,51 @@ const AllPackage = () => {
                 </div>
             </div>
 
-            <section className="main-table ">
+            <section className="main-table " style={{display:"block"}}>
                 <table className="table table-bordered table-striped table-hover">
                     <thead>
                         <tr>
                             <th scope="col">Sr.No.</th>
-                            <th scope="col">Package Name</th>
-                            <th scope="col">Test Groups</th>
-                            <th scope="col">Test Quantity</th>
-                            <th scope="col">Test Group Quantity</th>
-                            <th scope="col">Actuall Price</th>
-                            <th scope="col">Current Price</th>
-                            <th scope="col">Off Percentage</th>
+                            <th scope="col">Lab Name</th>
+                            <th scope="col">Lab Address</th>
+                            <th scope="col">Pincode</th>
+                            <th scope="col">City</th>
+                            <th scope="col">Full Name</th>
+                            <th scope="col">Phone</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Age</th>
+                            <th scope="col">Gender</th>
+                            <th scope="col">Appointment Time</th>
+                            <th scope="col">Booking Type</th>
+                            <th scope="col">Subtotal</th>
+                            <th scope="col">Total to Pay</th>
+                            <th scope="col">Payment Status</th>
                             <th scope="col">Edit</th>
                             <th scope="col">Delete</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {currentItems && currentItems.map((testPackage, index) => (
-                            <tr key={index}>
+                        {currentItems.map((order, index) => (
+                            <tr key={order._id}>
                                 <th scope="row">{index + 1}</th>
-                                <td>{testPackage.packageName}</td>
-                                <td>
-                                    {testPackage.testCategoryId.map((testGroupName, idx) => (
-                                      <>
-                                      {/* {console.log(testGroupName)} */}
-                                            <div key={idx}>{testGroupName} ,</div>
-                                        </>
-                                    ))}
-                                </td>
-                                <td>{testPackage.testQuantity}</td>
-                                <td>{testPackage.testGroupQuantity}</td>
-                                <td>{testPackage.actualPrice}</td>
-                                <td>{testPackage.currentPrice}</td>
-                                <td>
-                                  {testPackage.offPercentage ? `${testPackage.offPercentage}%` : ''}
-                                </td>
-                                <td><Link to={`/edit-package/${testPackage._id}`} className="bt edit">Edit <i className="fa-solid fa-pen-to-square"></i></Link></td>
-                                <td><Link onClick={() => { handleDelete(testPackage._id) }} className="bt delete">Delete <i className="fa-solid fa-trash"></i></Link></td>
+                                <td>{order.labName}</td>
+                                <td>{order.labAddress}</td>
+                                <td>{order.pincode}</td>
+                                <td>{order.city}</td>
+                                <td>{order.fullName}</td>
+                                <td>{order.phone}</td>
+                                <td>{order.email}</td>
+                                <td>{formatDate(order.date)}</td>
+                                <td>{order.age}</td>
+                                <td>{order.gender}</td>
+                                <td>{order.appointTime}</td>
+                                <td>{order.bookingType}</td>
+                                <td>{order.subtotal}</td>
+                                <td>{order.totalToPay}</td>
+                                <td>{order.paymentStatus}</td>
+                                <td><Link to={`/edit-order/${order._id}`} className="bt edit">Edit <i className="fa-solid fa-pen-to-square"></i></Link></td>
+                                <td><Link onClick={() => { handleDelete(order._id) }} className="bt delete">Delete <i className="fa-solid fa-trash"></i></Link></td>
                             </tr>
                         ))}
                     </tbody>
@@ -136,7 +148,7 @@ const AllPackage = () => {
                 </table>
                 <nav>
                     <ul className="pagination justify-content-center">
-                        {Array.from({ length: Math.ceil(testPackage.length / itemPerPage) }, (_, i) => (
+                        {Array.from({ length: Math.ceil(orders.length / itemPerPage) }, (_, i) => (
                             <li key={i + 1} className={`page-item ${currentPage === i + 1 ? 'active' : ''}`}>
                                 <button className="page-link" onClick={() => handlePageChange(i + 1)}>{i + 1}</button>
                             </li>
@@ -148,4 +160,4 @@ const AllPackage = () => {
     )
 }
 
-export default AllPackage
+export default AllOrders

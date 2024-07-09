@@ -33,7 +33,7 @@ const CreateVoucher = ({ onCreate }) => {
         setIsLoading(true);
 
         try {
-            const response = await axios.post('http://localhost:6842/api/v1/vouchers/create-vouchers', formData);  // Adjust the endpoint as needed
+            const response = await axios.post('https://lab-mantra-backend.onrender.com/api/v1/vouchers/create-vouchers', formData);  // Adjust the endpoint as needed
             console.log(response.data.data);
             toast.success('Coupon Code Generated Successfully');
             setIsLoading(false);

@@ -25,6 +25,12 @@
   --border-color-1 : rgba(101, 119, 134, 0.36);
   --transition-3: all 300ms ease-in;
   --transition-4: all 400ms ease-in;
+
+  --bg-head: #f0fffe;
+    --bg-greenblue: #2dbcb6;
+    --bg-light-green: #b5e7e6;
+    --bg-light-greenblue: #ddf3f2;
+    --bg-dark-blue: #003873;
 }
 body{
   background: var(--light-white) !important;
@@ -91,30 +97,34 @@ ol, ul {
 }
 
 
-/* -------- d-table ----  */
-.d-table{
+/* -------- main-table ----  */
+.main-table{
   width: 100%;
   margin: 1rem 0rem;
-  overflow-x: hidden;
+  overflow-x: auto;
   font-size: 0.88rem;
 }
-.d-table .table.table-bordered{
-  overflow-x: scroll;
+.main-table .table.table-bordered{
+  /* overflow-x: scroll; */
 }
-.d-table i{
+.main-table i{
   font-size: 0.78rem;
 }
-.d-table th{
+.main-table th{
   font-weight: 500;
   min-width: max-content;
+  white-space: nowrap;
 }
-.d-table img{
+.main-table td{
+  white-space: nowrap;
+}
+.main-table img{
   height: 50px;
   width: 50px;
   object-fit: cover;
 }
 
-.d-table .bt{
+.main-table .bt{
   padding: 2px 5px;
   border-radius: 5px;
   color: white;
@@ -124,13 +134,13 @@ ol, ul {
   border: none;
   outline: none;
 }
-.d-table .bt:hover{
+.main-table .bt:hover{
   opacity: 0.5;
 }
-.d-table .bt.edit{
+.main-table .bt.edit{
   background: var(--color-green);
 }
-.d-table .bt.delete{
+.main-table .bt.delete{
   background: red;
 }
 

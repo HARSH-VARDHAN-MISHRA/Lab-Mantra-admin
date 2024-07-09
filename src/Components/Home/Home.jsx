@@ -19,13 +19,20 @@ import AllLaboratory from '../../Pages/Laboratory/AllLaboratory'
 import AllUser from '../../Pages/Users/AllUser'
 import AllVoucher from '../../Pages/Vouchers/AllVoucher'
 import CreateVoucher from '../../Pages/Vouchers/AddVoucher'
+import AllOrders from '../../Pages/Orders/AllOrders'
+import Login from '../Auth/Login'
 
 
 const Home = () => {
+
+  const labadminToken = sessionStorage.getItem("labadminToken")
+  console.log(labadminToken);
   return (
     <>
-    
-      <Header/>
+
+    {labadminToken ? (
+      <>
+        <Header/>
       <div className="rightside">
         <Routes>
           <Route path={"/dashboard"} element={<Dashboard/>}/>
@@ -62,8 +69,19 @@ const Home = () => {
           <Route path={"/all-voucher"} element={<AllVoucher/>}/>   {/* // All Vouchers */}
           <Route path={"/add-voucher"} element={<CreateVoucher/>}/>
 
+          {/* --- Orders --- */}
+          <Route path={"/all-orders"} element={<AllOrders/>}/>
+
         </Routes>
       </div>
+      </>
+    ) : (
+      <Routes>
+        <Route path={"/"} element={<Login/>}/>
+      </Routes>
+    )}
+    
+      
 
     </>
   )

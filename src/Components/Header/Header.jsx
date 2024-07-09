@@ -3,10 +3,15 @@ import { Link } from 'react-router-dom'
 import './Header.css'
 
 const Header = () => {
-  const [sidetoggle,setSideToggle] = useState(false)
+  const [sidetoggle,setSideToggle] = useState(false);
 
   const handletoggleBtn =()=>{
     setSideToggle(!sidetoggle)
+  }
+
+  const handleLogOut =()=>{
+    sessionStorage.removeItem("labadminToken");
+    window.location.href="/";
   }
   return (
     <>
@@ -42,7 +47,8 @@ const Header = () => {
             <li><Link to="/all-test-category" onClick={handletoggleBtn}> <i className="fa-solid fa-layer-group"></i> Test Category</Link></li>
             <li><Link to="/all-test" onClick={handletoggleBtn}> <i className="fa-solid fa-flask-vial"></i> Test</Link></li>
             <li><Link to="/all-voucher" onClick={handletoggleBtn}> <i className="fa-brands fa-cc-discover"></i> Manage Voucher</Link></li>
-            <button className='logout'>Log Out <i className="fa-solid fa-right-from-bracket"></i></button>
+            <li><Link to="/all-orders" onClick={handletoggleBtn}> <i class="fa-solid fa-dolly"></i> Manage Orders</Link></li>
+            <button className='logout' onClick={handleLogOut}>Log Out <i className="fa-solid fa-right-from-bracket"></i></button>
 
           </ul>
         </div>
