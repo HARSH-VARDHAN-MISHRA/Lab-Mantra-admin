@@ -7,6 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 const AddLaboratory = () => {
     const [formData, setData] = useState({
         LabName: '',
+        LabPassword:'',
         RepresentedName: '',
         email: '',
         PhoneNumber: '',
@@ -80,10 +81,13 @@ const AddLaboratory = () => {
 
             <div className="d-form">
                 <form className="row g-3" onSubmit={handleSubmit}>
-                    <div className="col-md-8">
+                    <div className="col-md-4">
                         <label htmlFor="LabName" className="form-label">Laboratory Name<span className="text-danger">*</span></label>
                         <input type="text" name="LabName" value={formData.LabName} onChange={handleChange} className="form-control" id="LabName" required />
-
+                    </div>
+                    <div className="col-md-4">
+                        <label htmlFor="LabPassword" className="form-label">Laboratory Password<span className="text-danger">*</span></label>
+                        <input type="text" name="LabPassword" value={formData.LabPassword} onChange={handleChange} className="form-control" id="LabPassword" required />
                     </div>
                     <div className="col-md-4">
                         <label htmlFor="RepresentedName" className="form-label">Represented Name<span className="text-danger">*</span></label>

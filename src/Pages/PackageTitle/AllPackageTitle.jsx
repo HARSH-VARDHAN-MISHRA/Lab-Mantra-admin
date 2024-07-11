@@ -1,40 +1,43 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const AllPackageTitle = () => {
     const [packageTitle, setPackageTitle] = useState([]);
-
-    // --- Pagination ---
-    const [currentPage, setCurrentPage] = useState('1')
-    const itemPerPage = 8
+    const [filteredPackageTitle, setFilteredPackageTitle] = useState([]);
+    const [searchQuery, setSearchQuery] = useState('');
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemPerPage = 8;
 
     const handleFetch = async () => {
         try {
             const res = await axios.get('https://lab-mantra-backend.onrender.com/api/v1/get-all-package-title');
-            const reverseData = res.data.data
-            const main = reverseData.reverse()
-            setPackageTitle(main)
-            console.log(packageTitle)
+            const reverseData = res.data.data.reverse();
+            setPackageTitle(reverseData);
+            setFilteredPackageTitle(reverseData); // Initially set filtered data same as fetched data
         } catch (error) {
-            console.error('There was an error fetching the Package Title !', error);
+            console.error('There was an error fetching the Package Title!', error);
         }
-    }
+    };
+
     const handlePageChange = (pageNumber) => {
         setCurrentPage(pageNumber);
     };
 
-    // --- Pagination ---
-    const indexOfLastItem = currentPage * itemPerPage;
-    const indexOfFirstItem = indexOfLastItem - itemPerPage;
-    const currentItems = packageTitle.slice(indexOfFirstItem, indexOfLastItem)
-
     useEffect(() => {
         handleFetch();
     }, []);
+
+    useEffect(() => {
+        // Filter package titles based on searchQuery
+        const filtered = packageTitle.filter(title =>
+            title.packageTitle.toLowerCase().includes(searchQuery.toLowerCase())
+        );
+        setFilteredPackageTitle(filtered);
+    }, [searchQuery, packageTitle]);
 
     const handleDelete = async (id) => {
         Swal.fire({
@@ -66,12 +69,21 @@ const AllPackageTitle = () => {
         });
     };
 
+    const handleSearchChange = (event) => {
+        setSearchQuery(event.target.value);
+    };
+
+    // Calculate current items for pagination
+    const indexOfLastItem = currentPage * itemPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemPerPage;
+    const currentItems = filteredPackageTitle.slice(indexOfFirstItem, indexOfLastItem);
+
     return (
         <>
             <ToastContainer />
             <div className="bread">
                 <div className="head">
-                    <h4>All Package Title </h4>
+                    <h4>All Package Title</h4>
                 </div>
                 <div className="links">
                     <Link to="/add-package-title" className="add-new">Add New <i className="fa-solid fa-plus"></i></Link>
@@ -81,17 +93,23 @@ const AllPackageTitle = () => {
             <div className="filteration">
                 <div className="selects">
                     {/* <select>
-                        <option>Ascending Order </option>
-                        <option>Descending Order </option>
+                        <option>Ascending Order</option>
+                        <option>Descending Order</option>
                     </select> */}
                 </div>
                 <div className="search">
-                    <label htmlFor="search">Search </label> &nbsp;
-                    <input type="text" name="search" id="search" />
+                    <label htmlFor="search">Search</label> &nbsp;
+                    <input
+                        type="text"
+                        name="search"
+                        id="search"
+                        value={searchQuery}
+                        onChange={handleSearchChange}
+                    />
                 </div>
             </div>
 
-            <section className="main-table ">
+            <section className="main-table">
                 <table className="table table-bordered table-striped table-hover">
                     <thead>
                         <tr>
@@ -104,35 +122,33 @@ const AllPackageTitle = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {currentItems.map((packTitle, index) => (
+                        {currentItems.map((title, index) => (
                             <tr key={index}>
                                 <th scope="row">{index + 1}</th>
-                                <td>{packTitle.packageTitle}</td>
+                                <td>{title.packageTitle}</td>
                                 <td>
-                                    {packTitle.packagesId.map((packageName, idx) => (
-                                        <div key={idx}>{packageName.packageName} ,</div>
+                                    {title.packagesId.map((pkg, idx) => (
+                                        <div key={idx}>{pkg.packageName}, </div>
                                     ))}
                                 </td>
-                                <td>{packTitle.packagesQuantity}</td>
+                                <td>{title.packagesQuantity}</td>
                                 <td>
-                                    <Link to={`/edit-package-title/${packTitle._id}`} className="bt edit">
+                                    <Link to={`/edit-package-title/${title._id}`} className="bt edit">
                                         Edit <i className="fa-solid fa-pen-to-square"></i>
                                     </Link>
                                 </td>
                                 <td>
-                                    <Link onClick={() => { handleDelete(packTitle._id) }} className="bt delete">
+                                    <Link onClick={() => handleDelete(title._id)} className="bt delete">
                                         Delete <i className="fa-solid fa-trash"></i>
                                     </Link>
                                 </td>
                             </tr>
                         ))}
                     </tbody>
-
-
                 </table>
                 <nav>
                     <ul className="pagination justify-content-center">
-                        {Array.from({ length: Math.ceil(packageTitle.length / itemPerPage) }, (_, i) => (
+                        {Array.from({ length: Math.ceil(filteredPackageTitle.length / itemPerPage) }, (_, i) => (
                             <li key={i + 1} className={`page-item ${currentPage === i + 1 ? 'active' : ''}`}>
                                 <button className="page-link" onClick={() => handlePageChange(i + 1)}>{i + 1}</button>
                             </li>
@@ -141,7 +157,7 @@ const AllPackageTitle = () => {
                 </nav>
             </section>
         </>
-    )
-}
+    );
+};
 
-export default AllPackageTitle
+export default AllPackageTitle;

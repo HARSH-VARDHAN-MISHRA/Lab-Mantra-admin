@@ -53,6 +53,7 @@ const Header = () => {
             <li><Link to="/all-test" onClick={handletoggleBtn}> <i className="fa-solid fa-flask-vial"></i> Test</Link></li>
             <li><Link to="/all-voucher" onClick={handletoggleBtn}> <i className="fa-brands fa-cc-discover"></i> Manage Voucher</Link></li>
             <li><Link to="/all-orders" onClick={handletoggleBtn}> <i class="fa-solid fa-dolly"></i> Manage Orders</Link></li>
+            <li><Link to="/all-enquiry" onClick={handletoggleBtn}> <i class="fa-solid fa-dolly"></i> All Enquiry</Link></li>
             <button className='logout' onClick={handleLogOut}>Log Out <i className="fa-solid fa-right-from-bracket"></i></button>
 
           </ul>

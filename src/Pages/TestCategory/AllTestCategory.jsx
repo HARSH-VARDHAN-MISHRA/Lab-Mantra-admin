@@ -7,8 +7,8 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const AllTestCategory = () => {
     const [testCategory, setTestCategory] = useState([]);
-
-    // --- Pagination ---
+    const [filteredCategory, setFilteredCategory] = useState([]);
+    const [searchQuery, setSearchQuery] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 20;
 
@@ -17,6 +17,7 @@ const AllTestCategory = () => {
             const res = await axios.get('https://lab-mantra-backend.onrender.com/api/v1/get-all-test-category');
             const reverseData = res.data.data.reverse();
             setTestCategory(reverseData);
+            setFilteredCategory(reverseData); // Initially set filtered data same as fetched data
         } catch (error) {
             console.error('There was an error fetching the test categories!', error);
         }
@@ -26,14 +27,17 @@ const AllTestCategory = () => {
         setCurrentPage(pageNumber);
     };
 
-    // --- Pagination ---
-    const indexOfLastItem = currentPage * itemsPerPage;
-    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    const currentItems = testCategory.slice(indexOfFirstItem, indexOfLastItem);
-
     useEffect(() => {
         handleFetch();
     }, []);
+
+    useEffect(() => {
+        // Filter test categories based on searchQuery
+        const filtered = testCategory.filter(category =>
+            category.testCategoryName.toLowerCase().includes(searchQuery.toLowerCase())
+        );
+        setFilteredCategory(filtered);
+    }, [searchQuery, testCategory]);
 
     const handleDelete = async (id) => {
         Swal.fire({
@@ -64,6 +68,15 @@ const AllTestCategory = () => {
         });
     };
 
+    const handleSearchChange = (event) => {
+        setSearchQuery(event.target.value);
+    };
+
+    // Calculate current items for pagination
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const currentItems = filteredCategory.slice(indexOfFirstItem, indexOfLastItem);
+
     return (
         <>
             <ToastContainer />
@@ -79,7 +92,13 @@ const AllTestCategory = () => {
             <div className="filteration">
                 <div className="search">
                     <label htmlFor="search">Search</label> &nbsp;
-                    <input type="text" name="search" id="search" />
+                    <input
+                        type="text"
+                        name="search"
+                        id="search"
+                        value={searchQuery}
+                        onChange={handleSearchChange}
+                    />
                 </div>
             </div>
 
@@ -122,7 +141,7 @@ const AllTestCategory = () => {
                 </table>
                 <nav>
                     <ul className="pagination justify-content-center">
-                        {Array.from({ length: Math.ceil(testCategory.length / itemsPerPage) }, (_, i) => (
+                        {Array.from({ length: Math.ceil(filteredCategory.length / itemsPerPage) }, (_, i) => (
                             <li key={i + 1} className={`page-item ${currentPage === i + 1 ? 'active' : ''}`}>
                                 <button className="page-link" onClick={() => handlePageChange(i + 1)}>{i + 1}</button>
                             </li>

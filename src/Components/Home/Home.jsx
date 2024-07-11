@@ -23,6 +23,8 @@ import AllOrders from '../../Pages/Orders/AllOrders'
 import Login from '../Auth/Login'
 import AddLaboratoryBranch from '../../Pages/LaboratoryBranch/AddLaboratoryBranch'
 import AllLaboratoryBranch from '../../Pages/LaboratoryBranch/AllLaboratoryBranch'
+import ErrorPage from '../../Pages/Error/ErrorPage'
+import AllEnquiry from '../../Pages/Enquiry/AllEnquiry'
 
 
 const Home = () => {
@@ -78,12 +80,15 @@ const Home = () => {
           {/* --- Orders --- */}
           <Route path={"/all-orders"} element={<AllOrders/>}/>
 
+          <Route path={"/all-enquiry"} element={<AllEnquiry/>}/>
+          <Route path={"/*"} element={<ErrorPage/>}/>
         </Routes>
       </div>
       </>
     ) : (
       <Routes>
         <Route path={"/"} element={<Login/>}/>
+        <Route path={"/*"} element={<ErrorPage/>}/>
       </Routes>
     )}
     
