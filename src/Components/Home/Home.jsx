@@ -21,6 +21,8 @@ import AllVoucher from '../../Pages/Vouchers/AllVoucher'
 import CreateVoucher from '../../Pages/Vouchers/AddVoucher'
 import AllOrders from '../../Pages/Orders/AllOrders'
 import Login from '../Auth/Login'
+import AddLaboratoryBranch from '../../Pages/LaboratoryBranch/AddLaboratoryBranch'
+import AllLaboratoryBranch from '../../Pages/LaboratoryBranch/AllLaboratoryBranch'
 
 
 const Home = () => {
@@ -61,6 +63,10 @@ const Home = () => {
           <Route path={"/all-laboratory"} element={<AllLaboratory/>}/>
           <Route path={"/add-laboratory"} element={<AddLaboratory/>}/>
           {/* <Route path={"/edit-package/:id"} element={<EditPackage/>}/> */}
+
+          {/* --- Laboratory Branch --- */}
+          <Route path={"/all-laboratory-branch"} element={<AllLaboratoryBranch/>}/>
+          <Route path={"/add-laboratory-branch"} element={<AddLaboratoryBranch/>}/>
 
           {/* --- Users --- */}
           <Route path={"/all-users"} element={<AllUser/>}/>

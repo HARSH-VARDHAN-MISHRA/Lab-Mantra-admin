@@ -13,7 +13,7 @@
   --light-white: #f0f0f0;
   --light-white-p: #6c757d;
   --color-main: #2E3F97;  
-  --color-main-light: #53b6fd;  
+  --bg-greenblue: #53b6fd;  
   --color-anchor: #0d6efd;
   --color-blue: #4d8aff;
   --color-dark-blue: #004269;
@@ -62,20 +62,20 @@ ol, ul {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 2px solid var(--color-main-light);
-  border-top: 2px solid var(--color-main-light);
+  border-bottom: 2px solid var(--bg-greenblue);
+  border-top: 2px solid var(--bg-greenblue);
   padding: 0.5rem 0rem;
   flex-wrap: wrap;
   gap: 0.5rem;
 }
 .bread h4{
   margin-bottom: 0rem;
-  color: var(--color-main);
+  color: var(--color-blue-light);
 }
 .bread .links a{
   font-size: 1.1rem;
   color: white;
-  background: var(--color-main-light);
+  background: var(--bg-greenblue);
   padding: 0.4rem 1rem;
 }
 
@@ -84,7 +84,7 @@ ol, ul {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 2px solid var(--color-main-light);
+  border-bottom: 2px solid var(--bg-greenblue);
   padding: 0.5rem 0rem;
   flex-wrap: wrap;
   gap: 0.5rem;
@@ -93,7 +93,7 @@ ol, ul {
 .filteration select ,
 .filteration input{
   outline: none;
-  border: 1px solid var(--color-main-light) ;
+  border: 1px solid var(--bg-greenblue) ;
 }
 
 
@@ -179,9 +179,9 @@ ol, ul {
 }
 button[type="submit"]{
   padding: 0.3rem 1rem;
-  border: 1px solid var(--color-main-light);
+  border: 1px solid var(--bg-greenblue);
   outline: none;
-  background: var(--color-main-light);
+  background: var(--bg-greenblue);
   background: var(--color-green);
   color: white;
   text-transform: uppercase;

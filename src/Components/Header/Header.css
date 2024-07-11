@@ -1,6 +1,6 @@
 .top-head{
     height: 4rem;
-    background: var(--color-main-light);
+    background: var(--color-blue-light);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -27,7 +27,7 @@
 }
 .top-head .left a{
     background: white;
-    color: var(--color-main-light);
+    color: var(--color-blue-light);
     padding: 0.2rem 0.5rem;
     border-radius: 5px;
     display: flex;
@@ -47,13 +47,13 @@
     position: fixed;
     top: 4rem;
     left: 0;
-    background: var(--color-main-light);
-    /* background: #9ae5f8; */
+    background: var(--color-blue-light);
     height: 100%;
     overflow-y: auto;
     width: 250px;
     padding: 0.2rem 1.4rem;
     transition: var(--transition-3);
+    z-index: 20;
 }
 .rightNav ul{
     padding-left: 0rem;
@@ -67,7 +67,7 @@
 }
 .rightNav li a:hover{
     background: white;
-    color: var(--color-main-light);
+    color: var(--color-blue-light);
     padding-left: 0.4rem;
     border-radius: 15px;
 }
