@@ -14,7 +14,7 @@ const AllOrders = () => {
 
     const handleFetch = async () => {
         try {
-            const res = await axios.get('https://lab-mantra-backend.onrender.com/api/v1/all-orders');
+            const res = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/all-orders`);
             const reverseData = res.data.data
             const main = reverseData.reverse()
             setOrders(main)
@@ -48,7 +48,7 @@ const AllOrders = () => {
         }).then(async (result) => {
             if (result.isConfirmed) {
                 try {
-                    const res = await axios.delete(`https://lab-mantra-backend.onrender.com/api/v1/delete-order/${id}`);
+                    const res = await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/delete-order/${id}`);
                     console.log(res.data.data);
                     toast.success("Order Deleted");
                     handleFetch();

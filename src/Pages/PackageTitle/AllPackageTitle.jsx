@@ -14,7 +14,7 @@ const AllPackageTitle = () => {
 
     const handleFetch = async () => {
         try {
-            const res = await axios.get('https://lab-mantra-backend.onrender.com/api/v1/get-all-package-title');
+            const res = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/get-all-package-title`);
             const reverseData = res.data.data.reverse();
             setPackageTitle(reverseData);
             setFilteredPackageTitle(reverseData); // Initially set filtered data same as fetched data
@@ -51,7 +51,7 @@ const AllPackageTitle = () => {
         }).then(async (result) => {
             if (result.isConfirmed) {
                 try {
-                    const res = await axios.delete(`https://lab-mantra-backend.onrender.com/api/v1/delete-package-title/${id}`);
+                    const res = await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/delete-package-title/${id}`);
                     console.log(res.data);
                     toast.success("Package Title Deleted");
                     handleFetch();

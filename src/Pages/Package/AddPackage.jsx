@@ -91,7 +91,7 @@ const AddPackage = () => {
         setIsLoading(true);
 
         try {
-            const response = await axios.post('https://lab-mantra-backend.onrender.com/api/v1/create-package', formData);
+            const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/create-package`, formData);
             setIsLoading(false);
             toast.success('Package Created', {
                 onClose: () => navigate('/all-package')
@@ -107,7 +107,7 @@ const AddPackage = () => {
     useEffect(() => {
         const fetchTestCategories = async () => {
             try {
-                const response = await axios.get('https://lab-mantra-backend.onrender.com/api/v1/get-all-test-category');
+                const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/get-all-test-category`);
                 const options = response.data.data.map(category => ({
                     value: category._id,
                     label: category.testCategoryName,

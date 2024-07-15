@@ -16,7 +16,7 @@ const AllLaboratory = () => {
 
     const handleFetch = async () => {
         try {
-            const res = await axios.get('https://lab-mantra-backend.onrender.com/api/v1/get-all-laboratories');
+            const res = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/get-all-laboratories`);
             const reverseData = res.data.data.reverse();
             setLaboratory(reverseData);
         } catch (error) {
@@ -53,7 +53,7 @@ const AllLaboratory = () => {
             if (result.isConfirmed) {
                 try {
                     const res = await axios.delete(
-                        `https://lab-mantra-backend.onrender.com/api/v1/delete-laboratory/${id}`
+                        `${process.env.REACT_APP_BACKEND_URL}/delete-laboratory/${id}`
                     );
                     console.log(res.data);
                     toast.success('Laboratory Deleted');

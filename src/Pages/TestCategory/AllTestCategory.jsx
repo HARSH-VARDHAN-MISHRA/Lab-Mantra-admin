@@ -14,7 +14,7 @@ const AllTestCategory = () => {
 
     const handleFetch = async () => {
         try {
-            const res = await axios.get('https://lab-mantra-backend.onrender.com/api/v1/get-all-test-category');
+            const res = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/get-all-test-category`);
             const reverseData = res.data.data.reverse();
             setTestCategory(reverseData);
             setFilteredCategory(reverseData); // Initially set filtered data same as fetched data
@@ -51,7 +51,7 @@ const AllTestCategory = () => {
         }).then(async (result) => {
             if (result.isConfirmed) {
                 try {
-                    await axios.delete(`https://lab-mantra-backend.onrender.com/api/v1/delete-test-category/${id}`);
+                    await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/delete-test-category/${id}`);
                     toast.success("Test Category Deleted");
                     handleFetch();
 

@@ -18,7 +18,7 @@ const AllTest = () => {
 
     const handleFetch = async () => {
         try {
-            const res = await axios.get('https://lab-mantra-backend.onrender.com/api/v1/get-all-test');
+            const res = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/get-all-test`);
             const reverseData = res.data.data.reverse();
             setTests(reverseData);
         } catch (error) {
@@ -68,7 +68,7 @@ const AllTest = () => {
         }).then(async (result) => {
             if (result.isConfirmed) {
                 try {
-                    const res = await axios.delete(`https://lab-mantra-backend.onrender.com/api/v1/delete-test/${id}`);
+                    const res = await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/delete-test/${id}`);
                     console.log(res.data);
                     toast.success("Test Deleted");
                     handleFetch();

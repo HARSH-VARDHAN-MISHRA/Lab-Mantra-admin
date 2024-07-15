@@ -17,7 +17,7 @@ const AddPackageTitle = () => {
 
     const fetchPackages = async () => {
         try {
-            const response = await axios.get('https://lab-mantra-backend.onrender.com/api/v1/get-all-package');
+            const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/get-all-package`);
             const options = response.data.data.map(pkg => ({
                 value: pkg._id,
                 label: pkg.packageName
@@ -62,7 +62,7 @@ const AddPackageTitle = () => {
 
         setIsLoading(true);
         try {
-            const response = await axios.post('https://lab-mantra-backend.onrender.com/api/v1/create-package-title', formData);
+            const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/create-package-title`, formData);
             setIsLoading(false);
             toast.success("Package Title Added", {
                 onClose: () => {

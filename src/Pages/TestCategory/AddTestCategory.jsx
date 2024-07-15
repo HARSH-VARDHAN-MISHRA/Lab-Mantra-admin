@@ -17,7 +17,7 @@ const AddTestCategory = () => {
 
     const fetchTest = async () => {
         try {
-            const testRes = await axios.get('https://lab-mantra-backend.onrender.com/api/v1/get-all-test');
+            const testRes = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/get-all-test`);
             const options = testRes.data.data.map(test => ({
                 value: test._id,
                 label: test.testName
@@ -58,7 +58,7 @@ const AddTestCategory = () => {
         event.preventDefault();
         setIsLoading(true);
         try {
-            const response = await axios.post('https://lab-mantra-backend.onrender.com/api/v1/create-test-category', formData);
+            const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/create-test-category`, formData);
             setIsLoading(false);
             toast.success('Test Category Created', {
                 onClose: () => {

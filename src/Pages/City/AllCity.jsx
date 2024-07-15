@@ -16,7 +16,7 @@ const AllCity = () => {
 
     const fetchCities = async () => {
         try {
-            const response = await axios.get(`http://localhost:6842/api/v1/admin-get-city`);
+            const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/admin-get-city`);
             setCities(response.data || []);
         } catch (error) {
             console.log(error);
@@ -29,7 +29,7 @@ const AllCity = () => {
 
     const handleCreate = async () => {
         try {
-            await axios.post(`http://localhost:6842/api/v1/admin-create-city`, createData);
+            await axios.post(`${process.env.REACT_APP_BACKEND_URL}/admin-create-city`, createData);
             setCreateData({ cityName: '' });
             fetchCities();
             setOpenCreateModel(false);
@@ -41,7 +41,7 @@ const AllCity = () => {
 
     const handleEdit = async (id) => {
         try {
-            await axios.post(`http://localhost:6842/api/v1/admin-update-city/${id}`, updateData);
+            await axios.post(`${process.env.REACT_APP_BACKEND_URL}/admin-update-city/${id}`, updateData);
             setUpdateData({ cityName: '' });
             fetchCities();
             setOpenEditModel(false);
@@ -53,7 +53,7 @@ const AllCity = () => {
 
     const handleDelete = async (id) => {
         try {
-            await axios.delete(`http://localhost:6842/api/v1/admin-delete-city/${id}`);
+            await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/admin-delete-city/${id}`);
             fetchCities();
             toast.success('City Deleted Successfully');
         } catch (error) {

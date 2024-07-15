@@ -9,7 +9,7 @@ const AllVoucher = () => {
     useEffect(() => {
         const fetchVouchers = async () => {
             try {
-                const response = await axios.get('https://lab-mantra-backend.onrender.com/api/v1/vouchers');  // Adjust the endpoint as needed
+                const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/vouchers`);  // Adjust the endpoint as needed
                 setVouchers(response.data.data);
             } catch (error) {
                 console.error("Error fetching vouchers:", error);
@@ -21,7 +21,7 @@ const AllVoucher = () => {
 
     const markActive = async (id) => {
         try {
-            await axios.put(`https://lab-mantra-backend.onrender.com/api/v1/vouchers/activateVoucher/${id}`);
+            await axios.put(`${process.env.REACT_APP_BACKEND_URL}/vouchers/activateVoucher/${id}`);
             // Update the local state to reflect the change
             setVouchers(vouchers.map(voucher => voucher._id === id ? { ...voucher, Active: true } : voucher));
         } catch (error) {
@@ -31,7 +31,7 @@ const AllVoucher = () => {
 
     const markInActive = async (id) => {
         try {
-            await axios.put(`https://lab-mantra-backend.onrender.com/api/v1/vouchers/deactivateVoucher/${id}`);
+            await axios.put(`${process.env.REACT_APP_BACKEND_URL}/vouchers/deactivateVoucher/${id}`);
             // Update the local state to reflect the change
             setVouchers(vouchers.map(voucher => voucher._id === id ? { ...voucher, Active: false } : voucher));
         } catch (error) {
@@ -41,7 +41,7 @@ const AllVoucher = () => {
 
     const markDelete = async (id) => {
         try {
-            await axios.delete(`https://lab-mantra-backend.onrender.com/api/v1/vouchers/deleteVoucher/${id}`);
+            await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/vouchers/deleteVoucher/${id}`);
             // Remove the voucher from local state
             setVouchers(vouchers.filter(voucher => voucher._id !== id));
         } catch (error) {

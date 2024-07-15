@@ -23,11 +23,11 @@ const EditPackageTitle = () => {
         const fetchPackageTitle = async () => {
             try {
                 // Fetch all available packages
-                const responsePackages = await axios.get('https://lab-mantra-backend.onrender.com/api/v1/get-all-package');
+                const responsePackages = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/get-all-package`);
                 const availablePackages = responsePackages.data.data;
 
                 // Fetch package title by id
-                const responseTitle = await axios.get(`https://lab-mantra-backend.onrender.com/api/v1/get-all-package-title`);
+                const responseTitle = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/get-all-package-title`);
                 const packageTitles = responseTitle.data.data;
                 const packageTitleData = packageTitles.find(title => title._id === id);
                 // console.log(packageTitleData)
@@ -87,7 +87,7 @@ const EditPackageTitle = () => {
         setBtnLoading(true);
 
         try {
-            const response = await axios.put(`https://lab-mantra-backend.onrender.com/api/v1/update-package-title/${id}`, formData);
+            const response = await axios.put(`${process.env.REACT_APP_BACKEND_URL}/update-package-title/${id}`, formData);
             setBtnLoading(false);
             toast.success('Package Title Updated!', {
                 onClose: () => {

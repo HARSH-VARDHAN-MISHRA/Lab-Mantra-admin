@@ -14,7 +14,7 @@ const AllPackage = () => {
 
     const handleFetch = async () => {
         try {
-            const res = await axios.get('https://lab-mantra-backend.onrender.com/api/v1/get-all-package');
+            const res = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/get-all-package`);
             const reverseData = res.data.data.reverse();
             setPackage(reverseData);
             setFilteredPackage(reverseData); // Initially set filtered data same as fetched data
@@ -51,7 +51,7 @@ const AllPackage = () => {
         }).then(async (result) => {
             if (result.isConfirmed) {
                 try {
-                    const res = await axios.delete(`https://lab-mantra-backend.onrender.com/api/v1/delete-package/${id}`);
+                    const res = await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/delete-package/${id}`);
                     console.log(res.data);
                     toast.success("Package Deleted");
                     handleFetch();

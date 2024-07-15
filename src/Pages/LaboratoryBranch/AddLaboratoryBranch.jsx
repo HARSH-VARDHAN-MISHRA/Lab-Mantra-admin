@@ -43,7 +43,7 @@ const AddLaboratoryBranch = () => {
                 return;
             }
     
-            const response = await axios.post('https://lab-mantra-backend.onrender.com/api/v1/create-branch-laboratory', {
+            const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/create-branch-laboratory`, {
                 ...formData,
                 location: {
                     coordinates: [parseFloat(formData.longitude), parseFloat(formData.latitude)]
@@ -68,7 +68,7 @@ const AddLaboratoryBranch = () => {
     const [laboratories, setLaboratories] = useState([]);
     const fetchLaboratory = async () => {
         try {
-            const res = await axios.get("https://lab-mantra-backend.onrender.com/api/v1/get-all-laboratories");
+            const res = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/get-all-laboratories`);
             setLaboratories(res.data.data);
         } catch (error) {
             console.error("Error While Fetching the Laboratories !!", error);

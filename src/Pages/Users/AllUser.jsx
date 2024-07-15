@@ -14,7 +14,7 @@ const AllUser = () => {
 
     const handleFetch = async () => {
         try {
-            const res = await axios.get('https://lab-mantra-backend.onrender.com/api/v1/all-users');
+            const res = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/all-users`);
             const reverseData = res.data.users;
             const main = reverseData.reverse()
             setUsers(main)

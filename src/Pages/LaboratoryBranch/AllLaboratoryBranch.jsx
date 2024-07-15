@@ -15,7 +15,7 @@ const AllLaboratoryBranch = () => {
 
     const handleFetch = async () => {
         try {
-            const res = await axios.get('https://lab-mantra-backend.onrender.com/api/v1/get-all-branch-laboratories');
+            const res = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/get-all-branch-laboratories`);
             const reverseData = res.data.data
             const main = reverseData.reverse()
             setLaboratory(main)
@@ -26,7 +26,7 @@ const AllLaboratoryBranch = () => {
     }
     const handleMainLab = async () => {
         try {
-            const res = await axios.get('https://lab-mantra-backend.onrender.com/api/v1/get-all-laboratories');
+            const res = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/get-all-laboratories`);
             const reverseData = res.data.data
             const main = reverseData.reverse()
             setMainLaboratory(main)
@@ -67,7 +67,7 @@ const AllLaboratoryBranch = () => {
         }).then(async (result) => {
             if (result.isConfirmed) {
                 try {
-                    const res = await axios.delete(`https://lab-mantra-backend.onrender.com/api/v1/delete-branch-laboratory/${id}`);
+                    const res = await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/delete-branch-laboratory/${id}`);
                     console.log(res.data);
                     toast.success("Laboratory Deleted");
                     handleFetch();
