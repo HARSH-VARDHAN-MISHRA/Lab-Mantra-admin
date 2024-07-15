@@ -25,6 +25,7 @@ import AddLaboratoryBranch from '../../Pages/LaboratoryBranch/AddLaboratoryBranc
 import AllLaboratoryBranch from '../../Pages/LaboratoryBranch/AllLaboratoryBranch'
 import ErrorPage from '../../Pages/Error/ErrorPage'
 import AllEnquiry from '../../Pages/Enquiry/AllEnquiry'
+import AllCity from '../../Pages/City/AllCity'
 
 
 const Home = () => {
@@ -79,6 +80,9 @@ const Home = () => {
 
           {/* --- Orders --- */}
           <Route path={"/all-orders"} element={<AllOrders/>}/>
+
+          {/* --- Cities --- */}
+          <Route path={"/all-city"} element={<AllCity/>}/>
 
           <Route path={"/all-enquiry"} element={<AllEnquiry/>}/>
           <Route path={"/*"} element={<ErrorPage/>}/>
