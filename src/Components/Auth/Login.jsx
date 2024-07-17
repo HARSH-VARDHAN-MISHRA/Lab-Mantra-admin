@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import './Login.css'; // Make sure to create and import a CSS file for styling
 
 const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('admin@gmail.com');
+  const [password, setPassword] = useState('lab-mantra');
   const [error, setError] = useState('');
 
   const handleSubmit = (e) => {
