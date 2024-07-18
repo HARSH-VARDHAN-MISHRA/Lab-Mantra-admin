@@ -13,12 +13,34 @@ const AddPackage = () => {
         testGroupQuantity: 0,
         actualPrice: '',
         offPercentage: '',
-        currentPrice: ''
+        currentPrice: '',
+        selectedLab: ''
     });
 
     const [isLoading, setIsLoading] = useState(false);
     const [testOptions, setTestOptions] = useState([]);
+    const [laboratry, setLaboratry] = useState([]);
+    const [laboratryBranch, setLaboratryBranch] = useState([]);
     const navigate = useNavigate();
+
+    const fetchLab = async () => {
+        try {
+            const res = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/get-all-laboratories`);
+            setLaboratry(res.data.data);
+            console.log(res.data.data);
+        } catch (error) {
+            console.error("Error While Fetching the Labs : ", error);
+        }
+    }
+    const fetchLabBranch = async () => {
+        try {
+            const res = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/get-all-branch-laboratories`);
+            setLaboratryBranch(res.data.data);
+            console.log(res.data.data);
+        } catch (error) {
+            console.error("Error While Fetching the Lab Branch : ", error);
+        }
+    }
 
     // Handle input change for non-select inputs
     const handleInputChange = (event) => {
@@ -37,6 +59,13 @@ const AddPackage = () => {
             setFormData(prevState => ({
                 ...prevState,
                 currentPrice: calculatedCurrentPrice
+            }));
+        }
+        if (name === 'selectedLab') {
+            // Update selectedLab in formData
+            setFormData(prevState => ({
+                ...prevState,
+                selectedLab: value
             }));
         }
     };
@@ -119,7 +148,8 @@ const AddPackage = () => {
                 console.error('Error fetching test categories:', error);
             }
         };
-
+        fetchLab();
+        fetchLabBranch();
         fetchTestCategories();
     }, []);
 
@@ -137,10 +167,26 @@ const AddPackage = () => {
 
             <div className="d-form">
                 <form className="row g-3" onSubmit={handleSubmit}>
-                    <div className="col-md-8">
+                    <div className="col-md-4">
                         <label htmlFor="packageName" className="form-label">Package Name</label>
                         <input type="text" onChange={handleInputChange} name="packageName" value={formData.packageName} className="form-control" id="packageName" />
                     </div>
+
+
+                    <div className="col-md-4">
+                    <label htmlFor="labSelection" className="form-label">Lab Selection</label>
+                    <select className="form-select mb-3" name="selectedLab" value={formData.selectedLab} onChange={handleInputChange}>
+                        <option value="">Please Select Lab</option>
+                        {laboratry.map(lab => (
+                            <option key={lab._id} value={lab._id}>{lab.LabName}</option>
+                        ))}
+                        {laboratryBranch.map(lab => (
+                            <option key={lab._id} value={lab._id}>{lab.LabName}</option>
+                        ))}
+                    </select>
+                </div>
+
+
                     <div className="col-md-4">
                         <label htmlFor="testCategoryIds" className="form-label">Select Tests</label>
                         <Select
