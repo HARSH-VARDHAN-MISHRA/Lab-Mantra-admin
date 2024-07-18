@@ -1,4 +1,4 @@
-.top-head{
+.top-head {
     height: 4rem;
     background: var(--color-blue-light);
     display: flex;
@@ -12,39 +12,71 @@
     border-bottom: 1px solid white;
     z-index: 50;
 }
-.top-head>div{
+
+.top-head>div {
     display: flex;
     align-items: center;
     gap: 1rem;
 }
-.top-head h2{
+
+.top-head h2 {
     font-weight: 500;
     font-size: 1.5rem;
     margin-bottom: 0rem;
 }
-.top-head .bar{
+
+.top-head .bar {
     cursor: pointer;
     font-size: 1.2rem;
 }
-.top-head .left a{
+
+.top-head .left a {
     background: white;
     color: var(--color-blue-light);
     padding: 0.2rem 0.5rem;
     border-radius: 5px;
     display: flex;
-    align-items: center ;
+    align-items: center;
     gap: 0.5rem;
 }
-.top-head .left .logout{
+
+.top-head .left .logout {
     color: red;
     background: white;
     padding: 0.2rem 0.5rem;
     border-radius: 5px;
     cursor: pointer;
-    
+
 }
 
-.rightNav{
+/* ===================================== */
+
+/* width */
+.rightNav::-webkit-scrollbar {
+    width: 5px;
+}
+
+/* Track */
+.rightNav::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Handle */
+.rightNav::-webkit-scrollbar-thumb {
+    background: var(--color-dark-blue);
+}
+
+/* Handle on hover */
+.rightNav::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+
+
+
+/* ===================================== */
+
+.rightNav {
     position: fixed;
     top: 4rem;
     left: 0;
@@ -56,23 +88,27 @@
     transition: var(--transition-3);
     z-index: 20;
 }
-.rightNav ul{
+
+.rightNav ul {
     padding-left: 0rem;
 }
-.rightNav li a{
+
+.rightNav li a {
     color: white;
     text-decoration: none;
     display: block;
     padding: 0.8rem 0rem;
     transition: var(--transition-3);
 }
-.rightNav li a:hover{
+
+.rightNav li a:hover {
     background: white;
     color: var(--color-blue-light);
     padding-left: 0.4rem;
     border-radius: 15px;
 }
-.rightNav .logout{
+
+.rightNav .logout {
     border: 1px solid red;
     outline: none;
     width: 100%;
@@ -85,36 +121,45 @@
     margin: 1rem 0rem;
     transition: var(--transition-3);
 }
-.rightNav .logout:hover{
+
+.rightNav .logout:hover {
     color: red;
     background: white;
 }
-.top-head .bar{
+
+.top-head .bar {
     display: none;
 }
+
 @media only screen and (max-width: 768px) {
-    .top-head .bar{
+    .top-head .bar {
         display: block;
     }
+
     .rightNav {
         left: -250px;
     }
-    .rightNav.active{
+
+    .rightNav.active {
         left: 0px;
     }
-    .top-head .left{
+
+    .top-head .left {
         display: none;
     }
+
     .top-head>div {
         justify-content: space-between;
         gap: 0.5rem;
         width: 100%;
     }
 }
-@media only screen and (max-width: 400px){
+
+@media only screen and (max-width: 400px) {
     .top-head h2 {
         font-size: 1.3rem;
     }
+
     .top-head .bar {
         cursor: pointer;
         font-size: 1.4rem;

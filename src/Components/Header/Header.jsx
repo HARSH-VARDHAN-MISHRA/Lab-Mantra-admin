@@ -45,6 +45,7 @@ const Header = () => {
             <li><Link to="/dashboard" onClick={handletoggleBtn}> <i className="fa-solid fa-gauge"></i> Dashboard</Link></li>
 
             <li><Link to="/all-laboratory" onClick={handletoggleBtn}> <i className="fa-solid fa-house-chimney-medical"></i> Laboratory</Link></li>
+            <li><Link to="/add-laboratory-test" onClick={handletoggleBtn}> <i class="fa-solid fa-vial-virus"></i> Laboratory Test</Link></li>
             <li><Link to="/all-laboratory-branch" onClick={handletoggleBtn}> <i class="fa-solid fa-code-branch"></i> Laboratory Branch</Link></li>
             <li><Link to="/all-users" onClick={handletoggleBtn}> <i className="fa-solid fa-user-tag"></i> Users</Link></li>
             <li><Link to="/all-package-title" onClick={handletoggleBtn}> <i className="fa-solid fa-wand-magic-sparkles"></i> Package Title</Link></li>

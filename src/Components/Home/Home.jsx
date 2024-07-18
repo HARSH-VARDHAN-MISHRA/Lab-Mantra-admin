@@ -26,12 +26,13 @@ import AllLaboratoryBranch from '../../Pages/LaboratoryBranch/AllLaboratoryBranc
 import ErrorPage from '../../Pages/Error/ErrorPage'
 import AllEnquiry from '../../Pages/Enquiry/AllEnquiry'
 import AllCity from '../../Pages/City/AllCity'
+import AddLaboratoryTest from '../../Pages/LaboratoryTest/AddLaboratoryTest'
 
 
 const Home = () => {
 
   const labadminToken = sessionStorage.getItem("labadminToken")
-  console.log(labadminToken);
+  // console.log(labadminToken);
   return (
     <>
 
@@ -65,6 +66,8 @@ const Home = () => {
           {/* --- Laboratory --- */}
           <Route path={"/all-laboratory"} element={<AllLaboratory/>}/>
           <Route path={"/add-laboratory"} element={<AddLaboratory/>}/>
+
+          <Route path={"/add-laboratory-test"} element={<AddLaboratoryTest/>}/>
           {/* <Route path={"/edit-package/:id"} element={<EditPackage/>}/> */}
 
           {/* --- Laboratory Branch --- */}
